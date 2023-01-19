@@ -74,3 +74,38 @@ function paintGame(state) {
   paintPlayer(state.players[0], size, PLAYER_ONE_COLOUR);
   paintPlayer(state.players[1], size, PLAYER_TWO_COLOUR);
 }
+
+function paintPlayer(playerState, size, color) {
+  const snake = playerState.snake;
+  canvasContext.fillStyle = color;
+
+  for (let cell of snake) {
+    canvas.fillRect(cell.x * size, cell.y * size, size, size);
+  }
+}
+
+function handleInit(num) {
+  playerNumber = num;
+}
+
+function handleGameState(gameState) {
+  if (!gameActive) {
+    return;
+  }
+  gameState = JSON.parse(gameState);
+  requestAnimationFrame(() => paintGame(gameState));
+}
+
+function handlegameOver(data) {
+  if (!gameActive) {
+    return;
+  }
+  data = JSON.parse(data);
+  gameActive = false;
+
+  if (data.winner === playerNumber) {
+    alert("You win");
+  } else {
+    alert("You Lost");
+  }
+}
