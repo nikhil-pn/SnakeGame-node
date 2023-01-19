@@ -13,6 +13,7 @@ socket.on("init", handleInit);
 socket.on("gameStart", handleGameStart);
 socket.on("gameOver", handlegameOver);
 socket.on("unknowCode", handleunknowCode);
+socket.on("gameCode", handleGameCode);
 socket.on("tooManyPlayer", handletooManyPlayer);
 
 const gameScreen = document.getElementById("gameScreen");
@@ -88,7 +89,7 @@ function handleInit(num) {
   playerNumber = num;
 }
 
-function handleGameState(gameState) {
+function handleGameStart(gameState) {
   if (!gameActive) {
     return;
   }
@@ -108,4 +109,15 @@ function handlegameOver(data) {
   } else {
     alert("You Lost");
   }
+}
+
+function handleGameCode(gameCode) {
+  gameCodeDisplay.innerHTML = gameCode;
+}
+
+function handleunknowCode() {
+  reset();
+  gameCodeDisplay.value = "";
+  initialScreen.style.display = "block";
+  gameScreen.style.display = "none";
 }
