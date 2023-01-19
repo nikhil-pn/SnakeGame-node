@@ -55,3 +55,22 @@ function startGame() {
   document.addEventListener("keydown", keydown);
   gameActive = true;
 }
+
+function keydown(e) {
+  socket.emit("keydown", e.keyCode);
+}
+
+function paintGame(state) {
+  canvasContext.fillStyle = BACKGROUND_COLOR;
+  canvasContext.fillRect(0, 0, canvas.width, canvas, height);
+
+  const food = state.food;
+  const grideSize = state.grideSize;
+  const size = canvas.width / grideSize;
+
+  canvasContext.fillStyle = FOOD_COLOUR;
+  canvasContext.fillRect(food.x * size, food.y * size, size, size);
+
+  paintPlayer(state.players[0], size, PLAYER_ONE_COLOUR);
+  paintPlayer(state.players[1], size, PLAYER_TWO_COLOUR);
+}
